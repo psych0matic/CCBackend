@@ -1,0 +1,70 @@
+openapi: 3.0.0
+info:
+  title: Country API
+  version: 1.0.0
+servers:
+- url: /
+paths:
+  /countries:
+    get:
+      summary: Retrieve all countries
+      operationId: countriesGET
+      responses:
+        "200":
+          description: A list of countries
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Country"
+                x-content-type: application/json
+      x-swagger-router-controller: Default
+  /countries/{name}:
+    get:
+      summary: Retrieve details about a specific Country
+      operationId: countriesNameGET
+      parameters:
+      - name: name
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Details about the Country
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CountryDetails"
+      x-swagger-router-controller: Default
+components:
+  schemas:
+    Country:
+      type: object
+      properties:
+        name:
+          type: string
+        flag:
+          type: string
+      example:
+        flag: flag
+        name: name
+    CountryDetails:
+      type: object
+      properties:
+        name:
+          type: string
+        population:
+          type: integer
+        capital:
+          type: string
+        flag:
+          type: string
+      example:
+        capital: capital
+        flag: flag
+        name: name
+        population: 0
